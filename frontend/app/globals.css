@@ -1,0 +1,93 @@
+@import "tailwindcss";
+
+:root {
+  --navy: #0A2342;
+  --navy2: #123560;
+  --blue: #2B6FE0;
+  --sky: #86B7FF;
+  --ice: #EAF2FE;
+  --bg: #F2F5FA;
+  --text: #0F1E33;
+  --muted: #5B6B82;
+  --line: #E1E7F0;
+  --gold: #F5B82E;
+  --wa: #1FAF5A;
+}
+
+/* Base styles stay inside @layer base so Tailwind classes can override them */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-jakarta), system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4 {
+    letter-spacing: -0.02em;
+    line-height: 1.12;
+  }
+}
+
+/* Horizontal swipe rows on mobile (doctors, expertise cards) */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* One-page nav: anchored sections shouldn't hide under the fixed header */
+section[id] {
+  scroll-margin-top: 84px;
+}
+
+/* Shared text input style used inside the booking modal */
+.fld-input {
+  width: 100%;
+  padding: 9px 14px;
+  border-radius: 12px;
+  border: 1.5px solid var(--line);
+  background: var(--bg);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--navy);
+  outline: none;
+  transition: border-color 0.15s;
+}
+.fld-input:focus {
+  border-color: var(--blue);
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(16px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.font-script {
+  font-family: var(--font-caveat), cursive;
+}
+
+/* Testimonial marquee (used once there are more than 5 published testimonials) */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.marquee-track {
+  animation: marquee 40s linear infinite;
+}
+.marquee-track:hover {
+  animation-play-state: paused;
+}
