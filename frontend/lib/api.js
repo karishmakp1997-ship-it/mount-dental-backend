@@ -1,5 +1,4 @@
-const API = process.env.NEXT_PUBLIC_API_URL;
-
+const API = `${process.env.NEXT_PUBLIC_API_URL}/api`;
 // Development: always fresh, so admin changes show on refresh.
 // Production: cached for 60 seconds.
 const fetchOptions =
