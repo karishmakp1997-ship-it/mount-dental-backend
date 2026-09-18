@@ -2,6 +2,7 @@
 const nextConfig = {
   images: {
     remotePatterns: [
+      { protocol: "https", hostname: "res.cloudinary.com", pathname: "/**" },
       { protocol: "https", hostname: "images.unsplash.com" },
       // Django media while developing. Replace these with your live API domain before going live.
       { protocol: "http", hostname: "127.0.0.1", port: "8000", pathname: "/media/**" },
