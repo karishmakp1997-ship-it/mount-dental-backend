@@ -3,6 +3,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { getHome } from "@/lib/api";
 import Header from "./Header";
+
+// Render on every request instead of once at build time. The backend runs on
+// Render's free tier, which sleeps after inactivity — a build-time fetch can
+// land exactly while it's asleep and bake a permanent failure into the static
+// page. Dynamic rendering re-fetches per visit instead, so it always recovers.
+export const dynamic = "force-dynamic";
 import BookButton from "./BookButton";
 import BookingModal from "./BookingModal";
 import ServiceModal from "./ServiceModal";

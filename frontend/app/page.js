@@ -9,6 +9,10 @@ import SmileCarousel from "./SmileCarousel";
 import TestimonialCard from "./TestimonialCard";
 import TestimonialMarquee from "./TestimonialMarquee";
 
+// Same reasoning as layout.js — always fetch fresh instead of baking in
+// whatever the backend returned (or failed to return) at build time.
+export const dynamic = "force-dynamic";
+
 // Matches the filenames already placed in /public/technology/ — first 5 default
 // technology items in admin order; anything beyond that falls back to 6.jpg, 7.jpg...
 const TECH_IMAGES = ["intraoral-scanner", "digital-opg", "radiovisiography", "dental-lasers", "nobel-biocare"];
@@ -55,7 +59,7 @@ function BookPill({ children, prefill, className = "" }) {
     </BookButton>
   );
 }
-export const dynamic = "force-dynamic";
+
 export default async function HomePage() {
   const data = await getHome();
 
@@ -253,6 +257,23 @@ export default async function HomePage() {
           </div>
 
           <ServiceMarquee services={services} />
+
+          {/* Bottom banner */}
+          <div className="mt-6 md:mt-8 rounded-[20px] md:rounded-[24px] border bg-white px-5 py-5 md:px-8 md:py-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4" style={{ borderColor: "var(--line)" }}>
+            <div className="flex items-center gap-3.5">
+              <span className="w-11 h-11 rounded-2xl flex items-center justify-center shrink-0" style={{ background: "var(--ice)", color: "var(--blue)" }}>
+                <Icon d={ICONS.cal} size={20} />
+              </span>
+              <div>
+                <p className="font-bold text-[15px] md:text-[16px]" style={{ color: "var(--navy)" }}>Not sure which treatment is right for you?</p>
+                <p className="text-[13px] md:text-[13.5px]" style={{ color: "var(--muted)" }}>Talk to our experts and get a personalised recommendation.</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3 shrink-0">
+              <BookPill>Book an appointment</BookPill>
+              <span className="font-script hidden sm:block text-[17px]" style={{ color: "var(--blue)" }}>Take the first step<br />towards a healthier smile</span>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -348,7 +369,7 @@ export default async function HomePage() {
                   {b.photo && <Image src={b.photo} alt={`${b.name} clinic`} fill sizes="(max-width:640px) 100vw, 220px" className="object-cover" />}
                   <span className="absolute top-2.5 left-2.5 px-2.5 py-1 md:px-3 md:py-1.5 rounded-full bg-white text-[11.5px] md:text-[12.5px] font-bold flex items-center gap-1.5" style={{ color: b.is_open_now ? "#177A45" : "#9A3412" }}>
                     <span className="w-2 h-2 rounded-full" style={{ background: b.is_open_now ? "#22A95B" : "#EA580C" }} />
-                    {b.is_open_now ? "Open now" : "Opened now"}
+                    {b.is_open_now ? "Open now" : "Closed now"}
                   </span>
                 </div>
                 <div className="flex flex-col px-2 pb-2 sm:px-0 sm:py-3 sm:pr-3">
