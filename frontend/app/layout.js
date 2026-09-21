@@ -29,11 +29,11 @@ const caveat = Caveat({
 
 export const metadata = {
   title: {
-    default: "Mount Dental Care | Multispeciality Dental Clinic in Chennai",
-    template: "%s | Mount Dental Care",
+    default: "Dental Care | Multispeciality Dental Clinic in Chennai",
+    template: "%s |  Dental Care",
   },
   description:
-    "Expert dental care in Chennai: implants, braces, root canal and laser dentistry at St. Thomas Mount and Nungambakkam.",
+    "Expert dental care in Chennai: implants, braces, root canal and laser dentistry at ZZZ.",
 };
 
 export const viewport = {
@@ -70,7 +70,7 @@ function Logo({ dark = false, logo }) {
       </span>
       <span className="min-w-0">
         <span className="block font-bold text-[16px] lg:text-[17px] leading-tight" style={{ color: dark ? "#fff" : "var(--navy)" }}>
-          Mount Dental Care
+           Dental Care
         </span>
         <span className="block text-[11px] lg:text-[11.5px]" style={{ color: dark ? "#A9BECC" : "var(--muted)" }}>
           Multispeciality dental clinic

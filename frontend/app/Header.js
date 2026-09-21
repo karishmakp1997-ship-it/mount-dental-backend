@@ -34,7 +34,7 @@ function Logo({ light, logo }) {
       </span>
       <span className="min-w-0">
         <span className="block font-bold text-[16px] lg:text-[17px] leading-tight transition-colors duration-300" style={{ color: light ? "#fff" : "var(--navy)" }}>
-          Mount Dental Care
+           Dental Care
         </span>
         <span className="block text-[11px] lg:text-[11.5px] transition-colors duration-300" style={{ color: light ? "#CFDEEF" : "var(--muted)" }}>
           Multispeciality dental clinic
