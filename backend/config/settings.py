@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     "bookings",
     "cloudinary",
     "cloudinary_storage",
+    "anymail",
 ]
 
 MIDDLEWARE = [
@@ -132,20 +133,17 @@ UNFOLD = {
 
 
 # Email — used to alert the clinic and confirm appointments to patients.
-# Defaults to printing emails in the terminal so bookings still work even
-# before real credentials are set up. See backend/.env.example for setup steps.
-EMAIL_BACKEND       = env("EMAIL_BACKEND", default="django.core.mail.backends.console.EmailBackend")
-EMAIL_HOST          = env("EMAIL_HOST", default="smtp.gmail.com")
-EMAIL_PORT          = env.int("EMAIL_PORT", default=587)
-EMAIL_USE_TLS       = env.bool("EMAIL_USE_TLS", default=True)
-EMAIL_HOST_USER     = env("EMAIL_HOST_USER", default="")
-EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD", default="")
-DEFAULT_FROM_EMAIL  = env("DEFAULT_FROM_EMAIL", default=EMAIL_HOST_USER or "no-reply@mountdentalcare.com")
-CLINIC_NOTIFY_EMAIL = env("CLINIC_NOTIFY_EMAIL", default=EMAIL_HOST_USER)
-# Fail fast instead of hanging the whole request if the mail server is slow or
-# unreachable (some hosts restrict outbound SMTP). The booking itself must
-# never get stuck waiting on this.
-EMAIL_TIMEOUT = 10
+# Render's free tier blocks outbound raw SMTP, so we send over HTTPS via
+# Brevo's API instead (django-anymail). Falls back to printing in the
+# terminal if BREVO_API_KEY isn't set, so bookings still work either way.
+if env("BREVO_API_KEY", default=""):
+    EMAIL_BACKEND = "anymail.backends.brevo.EmailBackend"
+    ANYMAIL = {"BREVO_API_KEY": env("BREVO_API_KEY")}
+else:
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+DEFAULT_FROM_EMAIL  = env("DEFAULT_FROM_EMAIL", default="no-reply@mountdentalcare.com")
+CLINIC_NOTIFY_EMAIL = env("CLINIC_NOTIFY_EMAIL", default="")
 
 
 # Production security
