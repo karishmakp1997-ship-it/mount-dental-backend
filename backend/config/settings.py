@@ -142,6 +142,10 @@ EMAIL_HOST_USER     = env("EMAIL_HOST_USER", default="")
 EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD", default="")
 DEFAULT_FROM_EMAIL  = env("DEFAULT_FROM_EMAIL", default=EMAIL_HOST_USER or "no-reply@mountdentalcare.com")
 CLINIC_NOTIFY_EMAIL = env("CLINIC_NOTIFY_EMAIL", default=EMAIL_HOST_USER)
+# Fail fast instead of hanging the whole request if the mail server is slow or
+# unreachable (some hosts restrict outbound SMTP). The booking itself must
+# never get stuck waiting on this.
+EMAIL_TIMEOUT = 10
 
 
 # Production security
@@ -150,4 +154,3 @@ if not DEBUG:
     SECURE_SSL_REDIRECT = True
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
-
